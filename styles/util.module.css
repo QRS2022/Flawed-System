@@ -1,0 +1,25 @@
+.center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.blueHighlight {
+  color: #3291f8 !important;
+}
+
+.onlyTextButton {
+  padding: 0 !important;
+  color: white !important;
+}
+
+.onlyTextBackground {
+  background: rgba(16, 16, 16, 0.7);
+  width: 100%;
+  padding: 20px;
+  margin: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

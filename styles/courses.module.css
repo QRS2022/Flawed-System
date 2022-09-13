@@ -1,0 +1,35 @@
+.button {
+  color: black !important;
+  border-color: grey !important;
+}
+
+.row {
+  height: 100px;
+  display: flex;
+  flex-direction: row;
+  text-align: center;
+}
+
+.rowFirst {
+  width: 1000px;
+  height: 100%;
+}
+
+.rowSecond {
+  border-width: 0;
+  width: 600px;
+  height: 100%;
+}
+
+.rowHead {
+  font-weight: bold;
+  font-size: 26px !important;
+}
+
+.rowContent {
+  font-size: 24px !important;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}

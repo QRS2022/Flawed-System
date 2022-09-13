@@ -1,0 +1,77 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model User {
+  username          String              @id @unique
+  email             String              @unique
+  password          String
+  position          String              @default("student")
+  messages          Messages[]
+  StudentsOnCourses StudentsOnCourses[]
+  Assignments       Assignments[]
+}
+
+model OperationSequence {
+  operationId   String @id @unique
+  page          String
+  module        String
+  widget        String
+  startTimeTick Int
+  duration      Int
+}
+
+model BlueClickCount {
+  clickId   String @id @unique @default(uuid())
+  enterTick String
+  widget    String
+  count     Int
+}
+
+model Messages {
+  owner          User   @relation(fields: [ownerName], references: [username])
+  messageId      Int    @id @unique @default(autoincrement())
+  ownerName      String
+  message        String
+  courseName     String
+  assignmentName String
+}
+
+model Courses {
+  courseName        String              @id @unique
+  assignments       Assignments[]
+  courseware        Courseware[]
+  teacherName       String
+  StudentsOnCourses StudentsOnCourses[]
+}
+
+model Assignments {
+  assignmentName String  @unique
+  assignmentId   Int     @id @default(autoincrement())
+  visibleRange   String  @default("Public")
+  courses        Courses @relation(fields: [theCourseName], references: [courseName])
+  theCourseName  String
+  owner          User    @relation(fields: [ownerName], references: [username])
+  ownerName      String
+}
+
+model Courseware {
+  coursewareName String
+  coursewareId   Int     @id @default(autoincrement())
+  courses        Courses @relation(fields: [theCourseName], references: [courseName])
+  theCourseName  String
+}
+
+model StudentsOnCourses {
+  student    User    @relation(fields: [username], references: [username])
+  course     Courses @relation(fields: [courseName], references: [courseName])
+  username   String
+  courseName String
+
+  @@id([username, courseName])
+}
