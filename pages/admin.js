@@ -28,7 +28,7 @@ const columns = [
   },
   {
     field: "module",
-    headerName: "Module",
+    headerName: "Function",
     width: 150,
     editable: false,
   },
