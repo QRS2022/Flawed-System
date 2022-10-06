@@ -396,26 +396,6 @@ export default function CourseDetail() {
                     >
                       Download
                     </Button>
-                    <Button
-                      id="R-Share"
-                      sx={{
-                        color: "black !important",
-                        fontSize: "22px !important",
-                      }}
-                      onClick={() => {
-                        setMessageToShare({
-                          ownerName: item.ownerName,
-                          courseName,
-                          message: `Would you like to share your assignment ${item.assignmentName} in class ${courseName}?`,
-                          assignmentName: item.assignmentName,
-                        });
-                        setTimeout(() => {
-                          setModal(true);
-                        }, 2000);
-                      }}
-                    >
-                      Share
-                    </Button>
                   </div>
                 }
               </Stack>
