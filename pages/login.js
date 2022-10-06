@@ -43,7 +43,7 @@ export default function Login() {
   };
 
   return (
-    <MainLayout>
+    <MainLayout useBackground={true}>
       <div className={utilStyle.center} style={{ height: "80%" }}>
         <div>
           <Stack
