@@ -179,16 +179,18 @@ function MyApp({ Component, pageProps }) {
       });
 
       window.addEventListener("keyup", (event) => {
-        if (lastOperation !== "keyup") {
-          let startTime =
-            keydownTimetick - parseInt(localStorage.getItem("enterTick"));
-          let duration = new Date().getTime() - keydownTimetick;
-          let record = getFormatRecord("Keypress", startTime, duration);
-          postClickRecord(record, async () => {
-            const _ = await oprationIdPlus("keyup");
-            lastKey = null;
-          });
-        }
+        let startTime =
+          keydownTimetick - parseInt(localStorage.getItem("enterTick"));
+        let duration = new Date().getTime() - keydownTimetick;
+        let record = getFormatRecord(
+          `Keypress(${event.key})`,
+          startTime,
+          duration
+        );
+        postClickRecord(record, async () => {
+          const _ = await oprationIdPlus("keyup");
+          lastKey = null;
+        });
       });
 
       window.addEventListener("wheel", (event) => {
