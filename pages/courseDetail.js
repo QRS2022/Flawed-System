@@ -95,6 +95,11 @@ export default function CourseDetail() {
     router.push("/deleted");
   }
 
+  if (downloadModal) {
+    setDownloadModal(false);
+    router.push("/download");
+  }
+
   const uploadModalHook = () => {
     const fakeBtn = {
       borderStyle: "solid",
@@ -144,34 +149,11 @@ export default function CourseDetail() {
     );
   };
 
-  const downloadModalHook = () => {
-    return (
-      <Modal open={downloadModal}>
-        <Box sx={modalStyle}>
-          <Box
-            id="DL-close"
-            sx={modalYes}
-            onClick={() => {
-              shareMessage(messageToShare);
-              setDownloadModal(false);
-            }}
-          >
-            close
-          </Box>
-          <Typography id="modal-modal-title" variant="h3" component="h2">
-            Download successfully!
-          </Typography>
-        </Box>
-      </Modal>
-    );
-  };
-
   function getMain(c) {
     if (c === "learn") {
       return (
         <div className={style.block}>
           {uploadModalHook()}
-          {downloadModalHook()}
           <Stack sx={{ marginTop: "60px" }}>
             <Stack direction="row">
               {learnTitle.map((item, index) => (
@@ -323,7 +305,6 @@ export default function CourseDetail() {
       return (
         <div className={style.block}>
           {uploadModalHook()}
-          {downloadModalHook()}
           <Modal
             open={showModal}
             onClose={() => {}}
