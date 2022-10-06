@@ -52,7 +52,6 @@ function MyApp({ Component, pageProps }) {
   };
 
   useEffect(() => {
-    console.log(1111);
     if (router.pathname !== "/admin") {
       // remove all listener first
       window.removeEventListener("wheel", null);
@@ -208,7 +207,6 @@ function MyApp({ Component, pageProps }) {
       };
 
       window.addEventListener("mousedown", (event) => {
-        console.log(event.target);
         mousedownTimetick = new Date().getTime();
       });
 
