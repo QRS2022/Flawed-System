@@ -78,6 +78,10 @@ export default function CourseDetail() {
   };
 
   useEffect(() => {
+    let params = new URL(document.location).searchParams;
+    courseName = params.get("courseName");
+    category = params.get("category");
+
     getCoursewares();
     if (category === "learn") {
       _getMyAssignments();
@@ -87,7 +91,8 @@ export default function CourseDetail() {
   }, []);
 
   if (showModal) {
-    console.log("GOGOGO");
+    setModal(false);
+    router.push("/deleted");
   }
 
   const uploadModalHook = () => {
