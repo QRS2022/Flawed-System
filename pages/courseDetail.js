@@ -86,6 +86,10 @@ export default function CourseDetail() {
     }
   }, []);
 
+  if (showModal) {
+    console.log("GOGOGO");
+  }
+
   const uploadModalHook = () => {
     const fakeBtn = {
       borderStyle: "solid",
@@ -163,17 +167,6 @@ export default function CourseDetail() {
         <div className={style.block}>
           {uploadModalHook()}
           {downloadModalHook()}
-          <Modal
-            open={showModal}
-            onClose={() => {}}
-            aria-labelledby="modal-modal-title"
-          >
-            <Box sx={modalStyle}>
-              <Typography id="modal-modal-title" variant="h6" component="h2">
-                Deleted successfully!
-              </Typography>
-            </Box>
-          </Modal>
           <Stack sx={{ marginTop: "60px" }}>
             <Stack direction="row">
               {learnTitle.map((item, index) => (
