@@ -54,11 +54,6 @@ function MyApp({ Component, pageProps }) {
   useEffect(() => {
     if (router.pathname !== "/admin") {
       // remove all listener first
-      window.removeEventListener("wheel", null);
-      window.removeEventListener("mousedown", null);
-      window.removeEventListener("mouseup", null);
-      window.removeEventListener("keydown", null);
-      window.removeEventListener("keyup", null);
       let mousedownTimetick = null;
       let keydownTimetick = null;
       let lastKey = null;
@@ -227,13 +222,6 @@ function MyApp({ Component, pageProps }) {
       });
       console.log("Capture Start.");
     }
-    return () => {
-      window.removeEventListener("wheel", null);
-      window.removeEventListener("mousedown", null);
-      window.removeEventListener("mouseup", null);
-      window.removeEventListener("keydown", null);
-      window.removeEventListener("keyup", null);
-    };
   }, []);
 
   return (
