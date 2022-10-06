@@ -187,6 +187,10 @@ export default function Login() {
                   });
                   setUsername("");
                   setEmail("");
+                } else if (values.password.length <= 6) {
+                  alert(
+                    "The length of the password must be longer than six characters"
+                  );
                 } else {
                   let res = await postNewUser(
                     {
