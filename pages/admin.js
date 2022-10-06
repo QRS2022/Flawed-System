@@ -254,19 +254,19 @@ export default function Admin() {
           variant="contained"
           onClick={() => {
             setComponent("result");
-            // if (!entryValue) {
-            //   alert("Please choose the timestamp first.");
-            // } else {
-            //   if (taskText.length < 1) {
-            //     alert("Task cannot be empty.");
-            //   } else {
-            //     // setComponent("result");
-            //     // let res = dimensionCalculation(
-            //     //   validate(specificOperations, taskText),
-            //     //   specificOperations
-            //     // );
-            //   }
-            // }
+            if (!entryValue) {
+              alert("Please choose the timestamp first.");
+            } else {
+              if (taskText.length < 1) {
+                alert("Task cannot be empty.");
+              } else {
+                setComponent("result");
+                let res = dimensionCalculation(
+                  validate(specificOperations, taskText),
+                  specificOperations
+                );
+              }
+            }
           }}
           color="secondary"
         >
