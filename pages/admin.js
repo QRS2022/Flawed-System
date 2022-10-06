@@ -250,52 +250,6 @@ export default function Admin() {
             setEntryInputValue(newInputValue);
           }}
         />
-        <Button
-          variant="contained"
-          onClick={() => {
-            setComponent("result");
-            if (!entryValue) {
-              alert("Please choose the timestamp first.");
-            } else {
-              if (taskText.length < 1) {
-                alert("Task cannot be empty.");
-              } else {
-                setComponent("result");
-                let res = dimensionCalculation(
-                  validate(specificOperations, taskText),
-                  specificOperations
-                );
-              }
-            }
-          }}
-          color="secondary"
-        >
-          Start Analyzing
-        </Button>
-        <Button
-          variant="contained"
-          color="error"
-          onClick={async () => {
-            let temp = confirm("Are you sure to clear all the data?");
-            if (temp) {
-              const _ = await deleteAllOperationSequences();
-              if (_.res) {
-                setOperations([]);
-              }
-            }
-          }}
-        >
-          Clear dataset
-        </Button>
-        <Button
-          variant="contained"
-          color="success"
-          onClick={() => {
-            router.push("/");
-          }}
-        >
-          Restart
-        </Button>
       </Stack>
       <Stack
         direction="row"
@@ -306,16 +260,6 @@ export default function Admin() {
         }}
       >
         {getComponent(component)}
-        <TextareaAutosize
-          aria-label="Task template"
-          placeholder="Please input the task template"
-          style={{ minWidth: "20vw" }}
-          minRows={30}
-          value={taskText}
-          onChange={(event) => {
-            setTaskText(event.target.value);
-          }}
-        />
       </Stack>
     </Box>
   );
