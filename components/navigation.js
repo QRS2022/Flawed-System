@@ -9,15 +9,15 @@ const logOutNav = [
   { text: "Home", id: "N-Home" },
   { text: "Sign up", id: "N-Signup" },
   { text: "Log in", id: "N-Login" },
-	//  { text: "Admin", id: "Admin" },
+  //  { text: "Admin", id: "Admin" },
 ];
 const logInNav = [
   { text: "ASSTclassroom", id: "N-ASSTclassroom" },
   { text: "Home", id: "N-Home" },
   { text: "Courses", id: "N-Course" },
-  { text: "Messages", id: "N-Messages" },
+  // { text: "Messages", id: "N-Messages" },
   { text: "Log out", id: "N-Logout" },
-	//  { text: "Admin", id: "Admin" },
+  //  { text: "Admin", id: "Admin" },
 ];
 const routerMap = {
   ASSTclassroom: "/",
