@@ -180,6 +180,9 @@ export default function Login() {
               variant="text"
               size="large"
               onClick={async () => {
+                const emailRegex = new RegExp(
+                  "^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(.[a-zA-Z0-9_-]+)+$"
+                );
                 if (values.password !== values.confirmPassword) {
                   setValues({
                     password: "",
@@ -187,7 +190,26 @@ export default function Login() {
                   });
                   setUsername("");
                   setEmail("");
-                } else {
+                } else if (values.password.length <= 6) {
+                  alert(
+                    "The length of the password must be longer than six characters"
+                  );
+                  setValues({
+                    password: "",
+                    confirmPassword: "",
+                  });
+                  setUsername("");
+                  setEmail("");
+                } else if (!emailRegex.test(values.email)) {
+                  alert("Invalid E-mail address!");
+                  setValues({
+                    password: "",
+                    confirmPassword: "",
+                  });
+                  setUsername("");
+                  setEmail("");
+                }
+                {
                   let res = await postNewUser(
                     {
                       username,

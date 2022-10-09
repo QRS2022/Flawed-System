@@ -78,6 +78,10 @@ export default function CourseDetail() {
   };
 
   useEffect(() => {
+    let params = new URL(document.location).searchParams;
+    courseName = params.get("courseName");
+    category = params.get("category");
+
     getCoursewares();
     if (category === "learn") {
       _getMyAssignments();
@@ -85,6 +89,16 @@ export default function CourseDetail() {
       getAssignmentsByCoursename();
     }
   }, []);
+
+  if (showModal) {
+    setModal(false);
+    router.push("/deleted");
+  }
+
+  if (downloadModal) {
+    setDownloadModal(false);
+    router.push("/download");
+  }
 
   const uploadModalHook = () => {
     const fakeBtn = {
@@ -135,45 +149,11 @@ export default function CourseDetail() {
     );
   };
 
-  const downloadModalHook = () => {
-    return (
-      <Modal open={downloadModal}>
-        <Box sx={modalStyle}>
-          <Box
-            id="DL-close"
-            sx={modalYes}
-            onClick={() => {
-              shareMessage(messageToShare);
-              setDownloadModal(false);
-            }}
-          >
-            close
-          </Box>
-          <Typography id="modal-modal-title" variant="h3" component="h2">
-            Download successfully!
-          </Typography>
-        </Box>
-      </Modal>
-    );
-  };
-
   function getMain(c) {
     if (c === "learn") {
       return (
         <div className={style.block}>
           {uploadModalHook()}
-          {downloadModalHook()}
-          <Modal
-            open={showModal}
-            onClose={() => {}}
-            aria-labelledby="modal-modal-title"
-          >
-            <Box sx={modalStyle}>
-              <Typography id="modal-modal-title" variant="h6" component="h2">
-                Deleted successfully!
-              </Typography>
-            </Box>
-          </Modal>
           <Stack sx={{ marginTop: "60px" }}>
             <Stack direction="row">
               {learnTitle.map((item, index) => (
@@ -236,6 +216,12 @@ export default function CourseDetail() {
                       color: "black !important",
                       fontSize: "22px !important",
                     }}
+                    download={true}
+                    href={`/files/${
+                      item.assignmentName.includes("assignment")
+                        ? "assignment"
+                        : "courseware"
+                    }.txt`}
                     onClick={() => {
                       setDownloadModal(true);
                     }}
@@ -271,6 +257,12 @@ export default function CourseDetail() {
                 </div>
                 <Button
                   id="DL-Download"
+                  download={true}
+                  href={`/files/${
+                    item.coursewareName.includes("assignment")
+                      ? "assignment"
+                      : "courseware"
+                  }.txt`}
                   className={style.twoRowBlock}
                   sx={{ color: "black !important" }}
                   onClick={() => {
@@ -325,7 +317,6 @@ export default function CourseDetail() {
       return (
         <div className={style.block}>
           {uploadModalHook()}
-          {downloadModalHook()}
           <Modal
             open={showModal}
             onClose={() => {}}
@@ -386,6 +377,12 @@ export default function CourseDetail() {
                   <div className={style.threeRowBlock}>
                     <Button
                       id="DL-Download"
+                      download={true}
+                      href={`/files/${
+                        item.assignmentName.includes("assignment")
+                          ? "assignment"
+                          : "courseware"
+                      }.txt`}
                       sx={{
                         color: "black !important",
                         fontSize: "22px !important",
@@ -395,26 +392,6 @@ export default function CourseDetail() {
                       }}
                     >
                       Download
-                    </Button>
-                    <Button
-                      id="R-Share"
-                      sx={{
-                        color: "black !important",
-                        fontSize: "22px !important",
-                      }}
-                      onClick={() => {
-                        setMessageToShare({
-                          ownerName: item.ownerName,
-                          courseName,
-                          message: `Would you like to share your assignment ${item.assignmentName} in class ${courseName}?`,
-                          assignmentName: item.assignmentName,
-                        });
-                        setTimeout(() => {
-                          setModal(true);
-                        }, 2000);
-                      }}
-                    >
-                      Share
                     </Button>
                   </div>
                 }
@@ -451,6 +428,12 @@ export default function CourseDetail() {
                       color: "black !important",
                       fontSize: "22px !important",
                     }}
+                    download={true}
+                    href={`/files/${
+                      item.coursewareName.includes("assignment")
+                        ? "assignment"
+                        : "courseware"
+                    }.txt`}
                     onClick={() => {
                       setDownloadModal(true);
                     }}
@@ -470,6 +453,7 @@ export default function CourseDetail() {
                       if (_.res) {
                         getCoursewares();
                       }
+                      setModal(true);
                     }}
                   >
                     Delete

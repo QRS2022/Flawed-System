@@ -13,7 +13,7 @@ const reverseRouterMap = {
   "/courseDetail": "Course Detail",
 };
 
-export default function MainLayout({ children }) {
+export default function MainLayout({ children, useBackground }) {
   const router = useRouter();
 
   useEffect(() => {
@@ -28,7 +28,7 @@ export default function MainLayout({ children }) {
         overflow: "hidden",
       }}
     >
-      <Background />
+      {useBackground && <Background />}
       <Navigation />
       {children}
     </Box>
