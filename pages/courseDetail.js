@@ -429,6 +429,7 @@ export default function CourseDetail() {
                       if (_.res) {
                         getCoursewares();
                       }
+                      setModal(true);
                     }}
                   >
                     Delete
