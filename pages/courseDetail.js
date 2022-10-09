@@ -216,6 +216,12 @@ export default function CourseDetail() {
                       color: "black !important",
                       fontSize: "22px !important",
                     }}
+                    download={true}
+                    href={`/files/${
+                      item.assignmentName.includes("assignment")
+                        ? "assignment"
+                        : "courseware"
+                    }.txt`}
                     onClick={() => {
                       setDownloadModal(true);
                     }}
@@ -251,6 +257,12 @@ export default function CourseDetail() {
                 </div>
                 <Button
                   id="DL-Download"
+                  download={true}
+                  href={`/files/${
+                    item.coursewareName.includes("assignment")
+                      ? "assignment"
+                      : "courseware"
+                  }.txt`}
                   className={style.twoRowBlock}
                   sx={{ color: "black !important" }}
                   onClick={() => {
@@ -365,6 +377,12 @@ export default function CourseDetail() {
                   <div className={style.threeRowBlock}>
                     <Button
                       id="DL-Download"
+                      download={true}
+                      href={`/files/${
+                        item.assignmentName.includes("assignment")
+                          ? "assignment"
+                          : "courseware"
+                      }.txt`}
                       sx={{
                         color: "black !important",
                         fontSize: "22px !important",
@@ -410,6 +428,12 @@ export default function CourseDetail() {
                       color: "black !important",
                       fontSize: "22px !important",
                     }}
+                    download={true}
+                    href={`/files/${
+                      item.coursewareName.includes("assignment")
+                        ? "assignment"
+                        : "courseware"
+                    }.txt`}
                     onClick={() => {
                       setDownloadModal(true);
                     }}
