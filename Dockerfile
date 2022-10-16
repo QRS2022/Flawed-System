@@ -7,7 +7,7 @@ WORKDIR /usr/app
 # copy all the files to the workdir
 COPY ./ ./
 
-RUN npm install yarn
+# RUN npm install -g yarn
 RUN yarn
 RUN yarn build
 
