@@ -21,6 +21,15 @@
   height: 100%;
 }
 
+.link {
+  color: blue;
+  cursor: pointer;
+}
+
+.link:hover {
+  text-decoration: underline;
+}
+
 .rowHead {
   font-weight: bold;
   font-size: 26px !important;
