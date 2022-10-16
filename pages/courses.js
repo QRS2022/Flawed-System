@@ -215,16 +215,20 @@ export default function Courses() {
                       {item.courseName}
                     </div>
                   </Link>
-                  <Button
-                    id="pCourses-Status"
-                    className={style.rowSecond + " " + style.rowContent}
+                  <a
+                    className={`${style.rowSecond} ${style.rowContent}`}
                     style={{ color: "#3291f8 !important" }}
-                    onClick={() => {
-                      postBlueClick("pCourses-Status");
-                    }}
                   >
-                    {item.category}
-                  </Button>
+                    <div
+                      className={style.link}
+                      id="pCourses-Status"
+                      onClick={() => {
+                        postBlueClick("pCourses-Status");
+                      }}
+                    >
+                      {item.category}
+                    </div>
+                  </a>
                 </div>
               ))}
             </Stack>

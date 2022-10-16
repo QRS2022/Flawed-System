@@ -188,9 +188,9 @@ export default function Admin() {
   };
 
   useEffect(() => {
-    localStorage.removeItem("enterTick");
-    localStorage.removeItem("operationId");
-    alert("Finish Capturing");
+    // localStorage.removeItem("enterTick");
+    // localStorage.removeItem("operationId");
+    // alert("Finish Capturing");
     const _ = getAllOperationSequences();
   }, []);
 
