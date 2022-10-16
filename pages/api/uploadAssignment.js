@@ -23,6 +23,8 @@ export default async function handler(req, res) {
     });
 
     res.status(200).json({ res: true });
+    return;
   }
   res.status(403).json();
+  return;
 }

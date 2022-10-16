@@ -22,7 +22,9 @@ export default async function handler(req, res) {
       }
     );
     res.status(200).json({ token });
+    return;
   } else {
     res.status(200).json({ token: null });
+    return;
   }
 }

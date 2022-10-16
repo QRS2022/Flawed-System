@@ -20,6 +20,8 @@ export default async function handler(req, res) {
     });
 
     res.status(200).json({ assignments: _ });
+    return;
   }
   res.status(403).json();
+  return;
 }

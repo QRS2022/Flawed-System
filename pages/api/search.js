@@ -23,6 +23,7 @@ export default async function handler(req, res) {
     if (course.length > 0) {
       // 如果是学生
       res.status(200).json({ course: result, jump: true });
+      return;
     } else {
       // 如果是老师
       const _course = await prisma.courses.findMany({
@@ -39,11 +40,14 @@ export default async function handler(req, res) {
       });
       if (_course.length > 0) {
         res.status(200).json({ course: result, jump: true });
+        return;
       } else {
         res.status(200).json({ course: result, jump: false });
+        return;
       }
     }
   } else {
     res.status(200).json({ course: null });
+    return;
   }
 }

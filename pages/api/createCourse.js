@@ -14,6 +14,8 @@ export default async function handler(req, res) {
     });
     if (_) res.status(200).json();
     else res.status(403).json();
+    return;
   }
   res.status(403).json();
+  return;
 }
