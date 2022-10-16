@@ -45,9 +45,9 @@ function MyApp({ Component, pageProps }) {
 
   const oprationIdPlus = async (operation) => {
     lastOperation = operation;
-    const _ = await localStorage.setItem(
+    const _ = await sessionStorage.setItem(
       "operationId",
-      parseInt(localStorage.getItem("operationId")) + 1
+      parseInt(sessionStorage.getItem("operationId")) + 1
     );
   };
 
@@ -58,12 +58,12 @@ function MyApp({ Component, pageProps }) {
       let keydownTimetick = null;
       let lastKey = null;
 
-      // 第一次，无localStorage
-      if (!localStorage.getItem("enterTick")) {
-        localStorage.setItem("enterTick", new Date().getTime());
-        localStorage.setItem("operationId", 1);
+      // 第一次，无sessionStorage
+      if (!sessionStorage.getItem("enterTick")) {
+        sessionStorage.setItem("enterTick", new Date().getTime());
+        sessionStorage.setItem("operationId", 1);
         const firstRecord = async () => {
-          const firstRecordOperationId = `FirstEnter-${localStorage.getItem(
+          const firstRecordOperationId = `FirstEnter-${sessionStorage.getItem(
             "enterTick"
           )}-${"0".padStart(8, "0")}`;
           let record = createClickRecord(
@@ -98,9 +98,9 @@ function MyApp({ Component, pageProps }) {
         }
         let username = localStorage.getItem("username");
         return createClickRecord(
-          `${username ? username : "NotLogin"}-${localStorage.getItem(
+          `${username ? username : "NotLogin"}-${sessionStorage.getItem(
             "enterTick"
-          )}-${localStorage
+          )}-${sessionStorage
             .getItem("operationId")
             .toString()
             .padStart(8, "0")}`,
@@ -112,10 +112,10 @@ function MyApp({ Component, pageProps }) {
         );
       };
 
-      window.addEventListener("beforeunload", (e) => {
-        localStorage.removeItem("enterTick");
-        localStorage.removeItem("operationId");
-      });
+      // window.addEventListener("beforeunload", (e) => {
+      //   localStorage.removeItem("enterTick");
+      //   localStorage.removeItem("operationId");
+      // });
 
       window.addEventListener(
         "load",
@@ -147,7 +147,8 @@ function MyApp({ Component, pageProps }) {
         "next",
         function () {
           let startTime =
-            new Date().getTime() - parseInt(localStorage.getItem("enterTick"));
+            new Date().getTime() -
+            parseInt(sessionStorage.getItem("enterTick"));
           let duration = randomNum(30, 60);
           let record = getFormatRecord("Forward", startTime, duration);
           postClickRecord(record, async () => {
@@ -161,7 +162,8 @@ function MyApp({ Component, pageProps }) {
         "previous",
         function () {
           let startTime =
-            new Date().getTime() - parseInt(localStorage.getItem("enterTick"));
+            new Date().getTime() -
+            parseInt(sessionStorage.getItem("enterTick"));
           let duration = randomNum(30, 60);
           let record = getFormatRecord("Backward", startTime, duration);
           postClickRecord(record, async () => {
@@ -180,7 +182,7 @@ function MyApp({ Component, pageProps }) {
 
       window.addEventListener("keyup", (event) => {
         let startTime =
-          keydownTimetick - parseInt(localStorage.getItem("enterTick"));
+          keydownTimetick - parseInt(sessionStorage.getItem("enterTick"));
         let duration = new Date().getTime() - keydownTimetick;
         let record = getFormatRecord(
           `Keypress(${event.key})`,
@@ -196,7 +198,8 @@ function MyApp({ Component, pageProps }) {
       window.addEventListener("wheel", (event) => {
         if (lastOperation !== "scroll") {
           let startTime =
-            new Date().getTime() - parseInt(localStorage.getItem("enterTick"));
+            new Date().getTime() -
+            parseInt(sessionStorage.getItem("enterTick"));
           let record = getFormatRecord("Scroll", startTime, randomNum(60, 120));
           postClickRecord(record, async () => {
             const _ = await oprationIdPlus("scroll");
@@ -219,7 +222,7 @@ function MyApp({ Component, pageProps }) {
 
       window.addEventListener("mouseup", (event) => {
         let startTime =
-          mousedownTimetick - parseInt(localStorage.getItem("enterTick"));
+          mousedownTimetick - parseInt(sessionStorage.getItem("enterTick"));
         let duration = new Date().getTime() - mousedownTimetick;
         let record = getFormatRecord(mouseWidget, startTime, duration);
         postClickRecord(record, async () => {
