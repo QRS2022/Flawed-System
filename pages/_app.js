@@ -58,27 +58,7 @@ function MyApp({ Component, pageProps }) {
       let keydownTimetick = null;
       let lastKey = null;
 
-      // 第一次，无localStorage
-      // if (!localStorage.getItem("enterTick")) {
-      //   localStorage.setItem("enterTick", new Date().getTime());
-      //   localStorage.setItem("operationId", 1);
-      //   const firstRecord = async () => {
-      //     const firstRecordOperationId = `FirstEnter-${localStorage.getItem(
-      //       "enterTick"
-      //     )}-${"0".padStart(8, "0")}`;
-      //     let record = createClickRecord(
-      //       firstRecordOperationId,
-      //       "First Enter",
-      //       "None",
-      //       "None",
-      //       0,
-      //       0
-      //     );
-      //     postClickRecord(record);
-      //   };
-      //   firstRecord();
-      // }
-
+      // 第一次，无sessionStorage
       if (!sessionStorage.getItem("enterTick")) {
         sessionStorage.setItem("enterTick", new Date().getTime());
         sessionStorage.setItem("operationId", 1);
