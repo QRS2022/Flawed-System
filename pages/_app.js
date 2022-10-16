@@ -112,6 +112,11 @@ function MyApp({ Component, pageProps }) {
         );
       };
 
+      window.addEventListener("beforeunload", (e) => {
+        localStorage.removeItem("enterTick");
+        localStorage.removeItem("operationId");
+      });
+
       window.addEventListener(
         "load",
         function () {
