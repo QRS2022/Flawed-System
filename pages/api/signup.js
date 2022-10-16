@@ -17,6 +17,7 @@ export default async function handler(req, res) {
   });
   if (result.length > 0) {
     res.status(403).json(null);
+    return;
   } else {
     if (usernameCheck && emailCheck && passwordCheck) {
       const secondRes = await prisma.user.create({
@@ -25,8 +26,10 @@ export default async function handler(req, res) {
         },
       });
       res.status(200).json(secondRes);
+      return;
     } else {
       res.status(403).json(null);
+      return;
     }
   }
 }

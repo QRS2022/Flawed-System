@@ -12,6 +12,8 @@ export default async function handler(req, res) {
     });
 
     res.status(200).json({ messages: _ });
+    return;
   }
   res.status(403).json();
+  return;
 }

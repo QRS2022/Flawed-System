@@ -16,6 +16,8 @@ export default async function handler(req, res) {
     });
 
     res.status(200).json({ coursewares: _.courseware });
+    return;
   }
   res.status(403).json();
+  return;
 }
