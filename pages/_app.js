@@ -208,19 +208,20 @@ function MyApp({ Component, pageProps }) {
         return event.target.id;
       };
 
+      let mouseWidget;
       window.addEventListener("mousedown", (event) => {
         mousedownTimetick = new Date().getTime();
+        const widgetId = findRightComponentId(event);
+        mouseWidget = widgetId
+          ? widgetId
+          : `Blank(${event.clientX}, ${event.clientY})`;
       });
 
       window.addEventListener("mouseup", (event) => {
         let startTime =
           mousedownTimetick - parseInt(localStorage.getItem("enterTick"));
         let duration = new Date().getTime() - mousedownTimetick;
-        const widgetId = findRightComponentId(event);
-        const widget = widgetId
-          ? widgetId
-          : `Blank(${event.clientX}, ${event.clientY})`;
-        let record = getFormatRecord(widget, startTime, duration);
+        let record = getFormatRecord(mouseWidget, startTime, duration);
         postClickRecord(record, async () => {
           const _ = await oprationIdPlus("mouseup");
         });
