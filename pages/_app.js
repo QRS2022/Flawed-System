@@ -173,26 +173,17 @@ function MyApp({ Component, pageProps }) {
         false
       );
 
+      let firstPress = true;
       window.addEventListener("keydown", (event) => {
-        if (event.code !== lastKey) {
+        if (firstPress) {
           lastKey = event.code;
           keydownTimetick = new Date().getTime();
+          firstPress = false;
         }
       });
 
       window.addEventListener("keyup", (event) => {
-        let startTime =
-          keydownTimetick - parseInt(sessionStorage.getItem("enterTick"));
-        let duration = new Date().getTime() - keydownTimetick;
-        let record = getFormatRecord(
-          `Keypress(${event.key})`,
-          startTime,
-          duration
-        );
-        postClickRecord(record, async () => {
-          const _ = await oprationIdPlus("keyup");
-          lastKey = null;
-        });
+        lastOperation = "keyup";
       });
 
       window.addEventListener("wheel", (event) => {
@@ -213,6 +204,18 @@ function MyApp({ Component, pageProps }) {
 
       let mouseWidget;
       window.addEventListener("mousedown", (event) => {
+        // 结束键盘事件
+        if (lastOperation === "keyup") {
+          let startTime =
+            keydownTimetick - parseInt(sessionStorage.getItem("enterTick"));
+          let duration = new Date().getTime() - keydownTimetick;
+          let record = getFormatRecord("Keypress", startTime, duration);
+          postClickRecord(record, async () => {
+            const _ = await oprationIdPlus("keyup");
+            lastKey = null;
+          });
+          firstPress = true;
+        }
         mousedownTimetick = new Date().getTime();
         const widgetId = findRightComponentId(event);
         mouseWidget = widgetId
@@ -229,7 +232,6 @@ function MyApp({ Component, pageProps }) {
           const _ = await oprationIdPlus("mouseup");
         });
       });
-      console.log("Capture Start.");
     }
   }, []);
 
