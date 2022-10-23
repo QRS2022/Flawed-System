@@ -183,14 +183,18 @@ export default function Login() {
                 const emailRegex = new RegExp(
                   "^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(.[a-zA-Z0-9_-]+)+$"
                 );
-                if (values.password !== values.confirmPassword) {
+                // 验证用户名
+                if (!username) {
+                  alert("Invalid Username");
                   setValues({
                     password: "",
                     confirmPassword: "",
                   });
                   setUsername("");
                   setEmail("");
-                } else if (values.password.length <= 6) {
+                }
+                // 密码长度不够
+                else if (values.password.length <= 6) {
                   alert(
                     "The length of the password must be longer than six characters"
                   );
@@ -200,7 +204,17 @@ export default function Login() {
                   });
                   setUsername("");
                   setEmail("");
-                } else if (!emailRegex.test(values.email)) {
+                } else if (values.password !== values.confirmPassword) {
+                  // 两次密码不同
+                  alert("Password confirmation failed");
+                  setValues({
+                    password: "",
+                    confirmPassword: "",
+                  });
+                  setUsername("");
+                  setEmail("");
+                  // 邮箱不合法
+                } else if (!emailRegex.test(email)) {
                   alert("Invalid E-mail address!");
                   setValues({
                     password: "",
@@ -208,8 +222,7 @@ export default function Login() {
                   });
                   setUsername("");
                   setEmail("");
-                }
-                {
+                } else {
                   let res = await postNewUser(
                     {
                       username,
