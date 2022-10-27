@@ -9,7 +9,7 @@ SwiperCore.use([Pagination, Navigation]);
 import Image from "next/image";
 
 export default function Home() {
-  const state = useSharedData();
+  // const state = useSharedData();
   return (
     <MainLayout>
       <>

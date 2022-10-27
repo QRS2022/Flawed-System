@@ -237,7 +237,7 @@ export default function Login() {
                       if (token) {
                         localStorage.setItem("username", username);
                         localStorage.setItem("token", token);
-                        router.push("/");
+                        // router.push("/");
                       }
                     }
                   );

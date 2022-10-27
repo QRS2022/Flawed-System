@@ -112,67 +112,6 @@ function MyApp({ Component, pageProps }) {
         );
       };
 
-      // window.addEventListener("beforeunload", (e) => {
-      //   localStorage.removeItem("enterTick");
-      //   localStorage.removeItem("operationId");
-      // });
-
-      window.addEventListener(
-        "load",
-        function () {
-          // create history states
-          history.pushState(-1, null); // back state
-          history.pushState(0, null); // main state
-          history.pushState(1, null); // forward state
-          history.go(-1); // start in main state
-          this.addEventListener(
-            "popstate",
-            function (event, state) {
-              // check history state and fire custom events
-              if ((state = event.state)) {
-                event = document.createEvent("Event");
-                event.initEvent(state > 0 ? "next" : "previous", true, true);
-                this.dispatchEvent(event);
-                // reset state
-                history.go(-state);
-              }
-            },
-            false
-          );
-        },
-        false
-      );
-
-      window.addEventListener(
-        "next",
-        function () {
-          let startTime =
-            new Date().getTime() -
-            parseInt(sessionStorage.getItem("enterTick"));
-          let duration = randomNum(30, 60);
-          let record = getFormatRecord("Forward", startTime, duration);
-          postClickRecord(record, async () => {
-            const _ = await oprationIdPlus("Forward");
-          });
-        },
-        false
-      );
-
-      window.addEventListener(
-        "previous",
-        function () {
-          let startTime =
-            new Date().getTime() -
-            parseInt(sessionStorage.getItem("enterTick"));
-          let duration = randomNum(30, 60);
-          let record = getFormatRecord("Backward", startTime, duration);
-          postClickRecord(record, async () => {
-            const _ = await oprationIdPlus("Backward");
-          });
-        },
-        false
-      );
-
       let firstPress = true;
       window.addEventListener("keydown", (event) => {
         if (firstPress) {
