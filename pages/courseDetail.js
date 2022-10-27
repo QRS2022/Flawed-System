@@ -18,6 +18,7 @@ import {
   getCourseAssignments,
   shareMessage,
 } from "../util";
+import urlMonitor from "../utils/urlMonitor";
 
 const learnTitle = ["Assignments", "Visible Range", "Operation"];
 const teachTitle = ["Student", "Assignment", "Operation"];
@@ -78,6 +79,7 @@ export default function CourseDetail() {
   };
 
   useEffect(() => {
+    urlMonitor();
     let params = new URL(document.location).searchParams;
     courseName = params.get("courseName");
     category = params.get("category");

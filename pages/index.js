@@ -7,9 +7,15 @@ import "swiper/css/navigation";
 import SwiperCore, { Navigation, Pagination } from "swiper";
 SwiperCore.use([Pagination, Navigation]);
 import Image from "next/image";
+import React from "react";
+import urlMonitor from "../utils/urlMonitor";
 
 export default function Home() {
-  const state = useSharedData();
+  // const state = useSharedData();
+  React.useEffect(() => {
+    urlMonitor();
+  }, []);
+
   return (
     <MainLayout>
       <>

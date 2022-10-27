@@ -112,40 +112,19 @@ function MyApp({ Component, pageProps }) {
         );
       };
 
-      // window.addEventListener("beforeunload", (e) => {
-      //   localStorage.removeItem("enterTick");
-      //   localStorage.removeItem("operationId");
-      // });
-
-      window.addEventListener(
-        "load",
-        function () {
-          // create history states
-          history.pushState(-1, null); // back state
-          history.pushState(0, null); // main state
-          history.pushState(1, null); // forward state
-          history.go(-1); // start in main state
-          this.addEventListener(
-            "popstate",
-            function (event, state) {
-              // check history state and fire custom events
-              if ((state = event.state)) {
-                event = document.createEvent("Event");
-                event.initEvent(state > 0 ? "next" : "previous", true, true);
-                this.dispatchEvent(event);
-                // reset state
-                history.go(-state);
-              }
-            },
-            false
-          );
-        },
-        false
-      );
-
-      window.addEventListener(
-        "next",
-        function () {
+      window.addEventListener("popstate", async () => {
+        const curUrl = document.location.href;
+        const curId = sessionStorage.getItem("curId");
+        await new Promise((r) => {
+          setTimeout(() => {
+            r();
+          }, 0);
+        });
+        const arrTemp = JSON.parse(sessionStorage.getItem("urlStack"));
+        const arr = arrTemp.reverse();
+        const id = arr.reverse().find((item) => item.url == curUrl).id;
+        if (id > curId) {
+          console.log("Forward");
           let startTime =
             new Date().getTime() -
             parseInt(sessionStorage.getItem("enterTick"));
@@ -154,13 +133,9 @@ function MyApp({ Component, pageProps }) {
           postClickRecord(record, async () => {
             const _ = await oprationIdPlus("Forward");
           });
-        },
-        false
-      );
-
-      window.addEventListener(
-        "previous",
-        function () {
+          sessionStorage.setItem("curId", id);
+        } else {
+          console.log("Backward");
           let startTime =
             new Date().getTime() -
             parseInt(sessionStorage.getItem("enterTick"));
@@ -169,9 +144,9 @@ function MyApp({ Component, pageProps }) {
           postClickRecord(record, async () => {
             const _ = await oprationIdPlus("Backward");
           });
-        },
-        false
-      );
+          sessionStorage.setItem("curId", id);
+        }
+      });
 
       let firstPress = true;
       window.addEventListener("keydown", (event) => {

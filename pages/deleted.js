@@ -1,6 +1,7 @@
 import { Box, Modal, Typography } from "@mui/material";
 import React from "react";
 import MainLayout from "../components/mainLayout";
+import urlMonitor from "../utils/urlMonitor";
 
 const modalStyle = {
   position: "absolute",
@@ -20,6 +21,9 @@ const modalStyle = {
 };
 
 function Deleted() {
+  React.useEffect(() => {
+    urlMonitor();
+  }, []);
   return (
     <MainLayout>
       <Box
