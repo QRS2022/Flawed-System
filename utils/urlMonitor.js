@@ -11,5 +11,5 @@ export default function urlMonitor() {
     sessionStorage.setItem("urlStack", JSON.stringify([{ url, id: 0 }]));
     sessionStorage.setItem("curId", 0);
   }
-  // console.log(JSON.parse(sessionStorage.getItem("urlStack")));
+  console.log(JSON.parse(sessionStorage.getItem("urlStack")));
 }
