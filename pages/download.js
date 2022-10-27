@@ -2,6 +2,7 @@ import { Box, Modal, Typography } from "@mui/material";
 import { useRouter } from "next/router";
 import React from "react";
 import MainLayout from "../components/mainLayout";
+import urlMonitor from "../utils/urlMonitor";
 
 const modalStyle = {
   position: "absolute",
@@ -29,6 +30,10 @@ const modalYes = {
 
 function Download() {
   const router = useRouter();
+
+  React.useEffect(() => {
+    urlMonitor();
+  }, []);
 
   return (
     <MainLayout>

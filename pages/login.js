@@ -14,6 +14,8 @@ import { Button } from "@mui/material";
 import utilStyle from "../styles/util.module.css";
 import { postBlueClick, postLogin } from "../util";
 import { useRouter } from "next/router";
+import urlMonitor from "../utils/urlMonitor";
+import React from "react";
 
 const fontColor = "rgba(16,16,16,0.7)";
 
@@ -41,6 +43,10 @@ export default function Login() {
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
+
+  React.useEffect(() => {
+    urlMonitor();
+  }, []);
 
   return (
     <MainLayout useBackground={true}>
@@ -122,7 +128,7 @@ export default function Login() {
                 if (token) {
                   localStorage.setItem("username", username);
                   localStorage.setItem("token", token);
-                  // router.push("/");
+                  router.push("/");
                 }
               }}
             >

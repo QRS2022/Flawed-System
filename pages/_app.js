@@ -112,6 +112,42 @@ function MyApp({ Component, pageProps }) {
         );
       };
 
+      window.addEventListener("popstate", async () => {
+        const curUrl = document.location.href;
+        const curId = sessionStorage.getItem("curId");
+        await new Promise((r) => {
+          setTimeout(() => {
+            r();
+          }, 0);
+        });
+        const arrTemp = JSON.parse(sessionStorage.getItem("urlStack"));
+        const arr = arrTemp.reverse();
+        const id = arr.reverse().find((item) => item.url == curUrl).id;
+        if (id > curId) {
+          console.log("Forward");
+          let startTime =
+            new Date().getTime() -
+            parseInt(sessionStorage.getItem("enterTick"));
+          let duration = randomNum(30, 60);
+          let record = getFormatRecord("Forward", startTime, duration);
+          postClickRecord(record, async () => {
+            const _ = await oprationIdPlus("Forward");
+          });
+          sessionStorage.setItem("curId", id);
+        } else {
+          console.log("Backward");
+          let startTime =
+            new Date().getTime() -
+            parseInt(sessionStorage.getItem("enterTick"));
+          let duration = randomNum(30, 60);
+          let record = getFormatRecord("Backward", startTime, duration);
+          postClickRecord(record, async () => {
+            const _ = await oprationIdPlus("Backward");
+          });
+          sessionStorage.setItem("curId", id);
+        }
+      });
+
       let firstPress = true;
       window.addEventListener("keydown", (event) => {
         if (firstPress) {

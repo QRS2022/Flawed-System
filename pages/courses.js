@@ -14,6 +14,8 @@ import {
 import Modal from "@mui/material/Modal";
 import { useRouter } from "next/router";
 import Flow from "./flow";
+import urlMonitor from "../utils/urlMonitor";
+import React from "react";
 
 const modalStyle = {
   position: "absolute",
@@ -82,6 +84,10 @@ export default function Courses() {
       }
     }
   }
+
+  React.useEffect(() => {
+    urlMonitor();
+  }, []);
 
   return (
     <MainLayout>
