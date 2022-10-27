@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
 import style from "./navigation.module.css";
@@ -31,6 +31,8 @@ const routerMap = {
 };
 
 export default function Navigation() {
+  const [content, setContent] = React.useState();
+  const [tool, setTool] = React.useState(0);
   let username = null;
 
   if (typeof localStorage !== "undefined") {
@@ -40,10 +42,11 @@ export default function Navigation() {
   function getNavigationBar(arr) {
     return arr.map((item, index) => {
       const text = item.text;
+      const id = item.id;
       return (
         <Link passHref href={routerMap[text]} key={index}>
           <Button
-            id={item.id}
+            id={id}
             className={index === 0 ? style.bold : ""}
             variant="text"
             sx={{
@@ -53,10 +56,13 @@ export default function Navigation() {
             onClick={
               text === "Log out"
                 ? () => {
+                    setTool((prev) => prev + 1);
                     localStorage.removeItem("token");
                     localStorage.removeItem("username");
                   }
-                : () => {}
+                : () => {
+                    setTool((prev) => prev + 1);
+                  }
             }
           >
             {text === "Home"
@@ -68,6 +74,14 @@ export default function Navigation() {
     });
   }
 
+  React.useEffect(() => {
+    setContent(
+      typeof window !== "undefined" && localStorage.getItem("token")
+        ? getNavigationBar(logInNav)
+        : getNavigationBar(logOutNav)
+    );
+  }, [tool]);
+
   return (
     <div>
       <Stack
@@ -75,9 +89,7 @@ export default function Navigation() {
         spacing={{ xs: 1, sm: 2, md: 4 }}
         sx={{ margin: "20px" }}
       >
-        {typeof window !== "undefined" && localStorage.getItem("token")
-          ? getNavigationBar(logInNav)
-          : getNavigationBar(logOutNav)}
+        {content}
       </Stack>
     </div>
   );
